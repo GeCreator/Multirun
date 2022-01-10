@@ -22,6 +22,11 @@ func _enter_tree():
 	_add_setting("debug/multirun/other_window_args", TYPE_STRING, "join")
 
 func _multirun_pressed():
+    # if already runned - close windows
+	if pids.size()>0:
+		get_editor_interface().stop_playing_scene()
+		kill_pids()
+		return
 	var window_count : int = ProjectSettings.get_setting("debug/multirun/number_of_windows")
 	var window_dist : int = ProjectSettings.get_setting("debug/multirun/window_distance")
 	var add_custom_args : bool = ProjectSettings.get_setting("debug/multirun/add_custom_args")
